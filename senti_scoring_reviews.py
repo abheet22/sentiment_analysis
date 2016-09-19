@@ -2,12 +2,8 @@ import nltk
 from nltk.corpus import wordnet as wn
 from nltk.corpus import sentiwordnet as swn
 import re
-from synonym_feature import main_feature
-from score_feat_dict import feature_score
-import MySQLdb
-from review_rep_remove import remove_rep
-from fetch_features import get_features
-from pie_chat_plot import plotting_sentiment
+import preprocessing
+
 NEGATION = r"""
     (?:
         ^(?:never|no|nothing|nowhere|noone|none|not|
@@ -212,6 +208,7 @@ def tagging_review_main(company_id,product_id):
     cursor = db.cursor()
 
     # Prepare SQL query to INSERT a record into the database.
+    #Fetch data saved in database ----- Need to change to work
     sql = "SELECT review FROM review WHERE company_id={}".format(company_id)
     try:
        # Execute the SQL command
